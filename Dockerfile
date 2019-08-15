@@ -1,0 +1,11 @@
+FROM centos:7
+LABEL maintainer="Vlad Grigorescu <grigorescu@gmail.com>"
+
+RUN yum install -y kernel-devel ruby-devel rubygems rpm-build gcc make jemalloc jemalloc-devel
+RUN gem install fpm
+RUN yum install -y epel-release git cmake cmake28 gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig file-devel gperftools-devel libmaxminddb-devel
+RUN yum -y install python2-pip
+RUN pip install --upgrade pip
+RUN pip install zkg
+
+
