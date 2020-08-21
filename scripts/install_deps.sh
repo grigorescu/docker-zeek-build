@@ -9,16 +9,18 @@ PKG_CMD="None"
 
 if command -v apt &> /dev/null; then
     PKG_CMD="apt"
+    UPDATE_CMD="update"
     FLAVOR="Debian"
 elif command -v yum &> /dev/null; then
     PKG_CMD="yum"
+    UPDATE_CMD="updateinfo"
     FLAVOR="RedHat"
 fi
 
-if ! $PKG_CMD update 2> /dev/null; then
+if ! $PKG_CMD $UPDATE_CMD 2> /dev/null; then
     SUDO_ASKPASS=/bin/true sudo -vn 2> /dev/null || die "Could not run sudo."
     PKG_CMD="sudo -n $PKG_CMD"
-    $PKG_CMD update || die "Could not run package manager."
+    $PKG_CMD $UPDATE_CMD || die "Could not run package manager."
 fi
 
 if [ $FLAVOR == "Debian" ]; then
