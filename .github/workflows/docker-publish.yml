@@ -19,13 +19,13 @@ jobs:
     strategy:
       matrix:
         zeek: ["master", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8"]
-        distro: ["centos7", "centos8"]
+        distro: ["centos:7", "centos:8"]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile_${{ matrix.distro }} --tag $IMAGE_NAME --build-arg ZEEK_VER=${{ matrix.zeek }}
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME --build-arg ZEEK_VER=${{ matrix.zeek }} --build-arg DISTRO=${{ matrix.distro }}
 
       - name: Log into registry
         if: github.event_name == 'push'
@@ -36,8 +36,8 @@ jobs:
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME_${{ matrix.distro }}
 
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          # Change all uppercase to lowercase and remove the semicolon
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]' | tr ':' '_')
 
           # Strip git ref prefix from version
           VERSION=${{ matrix.zeek }}
