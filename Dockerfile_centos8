@@ -1,9 +1,0 @@
-FROM centos:8
-LABEL maintainer="Vlad Grigorescu <vlad@es.net>"
-
-ARG ZEEK_VER
-COPY . /build
-
-RUN /build/scripts/install_deps.sh
-RUN /build/scripts/clone_zeek.sh ${ZEEK_VER}
-

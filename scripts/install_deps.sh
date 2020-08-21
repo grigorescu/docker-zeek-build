@@ -26,6 +26,7 @@ fi
 if [ $FLAVOR == "Debian" ]; then
     $PKG_CMD install -y bison cmake curl flex g++ gcc git libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python-dev sendmail swig zlib1g-dev
 elif [ $FLAVOR == "RedHat" ]; then
-    $PKG_CMD install -y bison cmake curl flex gcc gcc-c++ git jemalloc krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python-devel sendmail swig zlib-devel
+    $PKG_CMD -y epel-release
+    $PKG_CMD install -y bison cmake curl flex gcc gcc-c++ git jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig zlib-devel
 fi
 
