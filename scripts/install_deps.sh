@@ -28,7 +28,7 @@ if [ $FLAVOR == "Debian" ]; then
 elif [ $FLAVOR == "RedHat" ]; then
     # libpcap-devel moved to the PowerTools repo in CentOS 8
     if [ $(rpm -E %{rhel}) == "8" ]; then
-        $PKG_CMD install -y dnf-plugins-core
+        $PKG_CMD install -y dnf-plugins-core epel-release
         $PKG_CMD config-manager --set-enabled PowerTools
     else
         $PKG_CMD install -y epel-release
