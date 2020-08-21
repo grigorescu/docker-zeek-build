@@ -1,9 +1,10 @@
 ARG ZEEK_VER
 ARG DISTRO
 
+FROM ${DISTRO}
+
 ENV WORKSPACE /build
 
-FROM ${DISTRO}
 LABEL maintainer="Vlad Grigorescu <vlad@es.net>"
 
 COPY . /build
