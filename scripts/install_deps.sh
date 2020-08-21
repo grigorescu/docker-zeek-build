@@ -2,7 +2,7 @@
 
 set -e
 
-source utils.sh
+source $WORKSPACE/scripts/utils.sh
 
 FLAVOR=""
 PKG_CMD="None"
