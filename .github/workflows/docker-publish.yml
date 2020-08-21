@@ -23,13 +23,13 @@ jobs:
         distro: ["centos:7", "centos:8"]
 
     env:
-      VERSION: ${{ matrix.version }}
+      DISTRO: ${{ matrix.distro }}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME_${{ matrix.distro }}:${VERSION/:/_} --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=${{ matrix.distro }}
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME_${DISTRO/:/_}:${{ matrix.version }} --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=${{ matrix.distro }}
 
       - name: Log into registry
         if: github.event_name == 'push'
@@ -38,14 +38,14 @@ jobs:
       - name: Push image
         if: github.event_name == 'push'
         run: |
-          IMAGE_ID=docker.pkg.github.com/${IMAGE_NAME}_${{ matrix.distro }}
+          IMAGE_ID=docker.pkg.github.com/${IMAGE_NAME}_${DISTRO/:/_}
 
           # Change all uppercase to lowercase and remove the colon
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]' | tr ':' '_')
 
           echo IMAGE_NAME=$IMAGE_NAME
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=${VERSION/:/_}
+          echo VERSION=${{ matrix.version }}
 
-          docker tag $IMAGE_NAME $IMAGE_ID:${VERSION/:/_}
-          docker push $IMAGE_ID:${VERSION/:/_}
+          docker tag $IMAGE_NAME $IMAGE_ID:${{ matrix.version }}
+          docker push $IMAGE_ID:${{ matrix.version }}
