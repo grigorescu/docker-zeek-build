@@ -47,5 +47,4 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=${{ matrix.version }}
 
-          docker tag $IMAGE_NAME $IMAGE_ID:${{ matrix.version }}
-          docker push $IMAGE_ID:${{ matrix.version }}
+          docker push $IMAGE_NAME_${DISTRO/:/_}:${{ matrix.version }}
