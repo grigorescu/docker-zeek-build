@@ -22,11 +22,14 @@ jobs:
         version: ["latest", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8"]
         distro: ["centos:7", "centos:8"]
 
+    env:
+      VERSION: ${{ matrix.version }}
+
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME_${{ matrix.distro }}:${{ matrix.version }} --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=${{ matrix.distro }}
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME_${{ matrix.distro }}:${VERSION/:/_} --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=${{ matrix.distro }}
 
       - name: Log into registry
         if: github.event_name == 'push'
@@ -42,7 +45,7 @@ jobs:
 
           echo IMAGE_NAME=$IMAGE_NAME
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=${{ matrix.version }}
+          echo VERSION=${VERSION/:/_}
 
-          docker tag $IMAGE_NAME $IMAGE_ID:${{ matrix.version }}
-          docker push $IMAGE_ID:${{ matrix.version }}
+          docker tag $IMAGE_NAME $IMAGE_ID:${VERSION/:/_}
+          docker push $IMAGE_ID:${VERSION/:/_}
