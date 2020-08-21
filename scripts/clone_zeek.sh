@@ -5,7 +5,7 @@ set -e
 REPO="https://github.com/zeek/zeek.git"
 VER="$1"
 
-if [ -z "$VER" ]; then
+if [ -z "$VER" ] || [$VER == "latest" ]; then
     VER="master"
 fi
 

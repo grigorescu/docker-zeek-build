@@ -19,14 +19,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        zeek: ["master", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8"]
+        version: ["latest", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8"]
         distro: ["centos:7", "centos:8"]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag ${{ matrix.distro }}_${{ matrix.zeek }} --build-arg ZEEK_VER=${{ matrix.zeek }} --build-arg DISTRO=${{ matrix.distro }}
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME_${{ matrix.distro }}:${{ matrix.version }} --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=${{ matrix.distro }}
 
       - name: Log into registry
         if: github.event_name == 'push'
@@ -40,14 +40,9 @@ jobs:
           # Change all uppercase to lowercase and remove the colon
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]' | tr ':' '_')
 
-          # Strip git ref prefix from version
-          VERSION=${{ matrix.zeek }}
-
-          # Use Docker `latest` tag convention
-          [ "${{ matrix.zeek }}" == "master" ] && VERSION=latest
-
+          echo IMAGE_NAME=$IMAGE_NAME
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
+          echo VERSION=${{ matrix.version }}
 
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:${{ matrix.version }}
+          docker push $IMAGE_ID:${{ matrix.version }}
