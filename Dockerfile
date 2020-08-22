@@ -1,6 +1,7 @@
 ARG DISTRO
 
 FROM ${DISTRO}
+USER root
 
 ENV WORKSPACE /build
 
