@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Configure Docker (for Red Hat)
-        run: echo '${{ secrets.RH_DOCKER_CONF }}' > ~/.docker/config.json
+        run: mkdir ~/.docker; echo '${{ secrets.RH_DOCKER_CONF }}' > ~/.docker/config.json
         if: startsWith(matrix.distro, 'registry.redhat.io')
 
       - name: Build image
