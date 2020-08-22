@@ -40,11 +40,11 @@ jobs:
         run: |
           IMAGE_ID=docker.pkg.github.com/${IMAGE_NAME}
 
-          # Change all uppercase to lowercase and remove the colon
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]' | tr ':' '_')
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           echo IMAGE_NAME=$IMAGE_NAME
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=${{ matrix.version }}
 
-          docker push $IMAGE_NAME:${DISTRO/:/-}_zeek-${{ matrix.version }}
+          docker push docker.pkg.github.com/$IMAGE_ID:${DISTRO/:/-}_zeek-${{ matrix.version }}
