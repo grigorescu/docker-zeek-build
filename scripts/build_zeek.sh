@@ -15,7 +15,7 @@ if command -v python3 &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
 fi
 
-if grep -q -- --cmake ./configure && command -v cmake &> /dev/null; then
+if grep -q -- --cmake zeek/configure && command -v cmake &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --cmake=$(which cmake3)"
 fi
 
