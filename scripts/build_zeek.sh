@@ -38,7 +38,9 @@ fi
 
 cd zeek
 if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f cmake/RequireCXX17.cmake ]; then
-    scl enable devtoolset-7 ./configure $CONF_OPTS
+    echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
+else
+    ./configure $CONF_OPTS
 fi
 make $MAKE_OPTS
 make install
