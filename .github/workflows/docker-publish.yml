@@ -26,6 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Configure Docker (for Red Hat)
+        run: echo '${{ secrets.RH_DOCKER_CONF }}' > ~/.docker/config.json
+        if: startsWith("registry.redhat.io", matrix.distro )
+
       - name: Build image
         run: |
           VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
