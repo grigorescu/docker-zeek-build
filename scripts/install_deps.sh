@@ -23,8 +23,15 @@ if ! $PKG_CMD $UPDATE_CMD 2> /dev/null; then
     $PKG_CMD $UPDATE_CMD || die "Could not run package manager."
 fi
 
+# Given an argument, install that
+if [ ! -z "$1" ]; then
+    $PKG_CMD install -y $1
+    exit 0
+fi
+
+# Otherwise install what we think we need
 if [ $FLAVOR == "Debian" ]; then
-    $PKG_CMD install -y bison cmake curl flex g++ gcc git libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python-dev sendmail swig zlib1g-dev
+    $PKG_CMD install -y bison cmake curl flex g++ gcc libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python-dev sendmail swig zlib1g-dev
 elif [ $FLAVOR == "RedHat" ]; then
     # libpcap-devel moved to the PowerTools repo in CentOS 8
     if [ $(rpm -E %{rhel}) == "8" ]; then
@@ -40,6 +47,6 @@ elif [ $FLAVOR == "RedHat" ]; then
         fi
     fi
 
-    $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ git jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig which zlib-devel
+    $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig which zlib-devel
 fi
 
