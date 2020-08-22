@@ -11,6 +11,7 @@ COPY . /build
 
 WORKDIR /build
 
-RUN ./scripts/install_deps.sh
-RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
-RUN ./scripts/build_zeek.sh
+#RUN ./scripts/install_deps.sh
+RUN echo ${ZEEK_VER}
+#RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
+#RUN ./scripts/build_zeek.sh
