@@ -36,15 +36,13 @@ if [ $FLAVOR == "Debian" ]; then
 elif [ $FLAVOR == "RedHat" ]; then
     # libpcap-devel moved to the PowerTools repo in CentOS 8
     if [ $(rpm -E %{rhel}) == "8" ]; then
-        $PKG_CMD install -y dnf-plugins-core https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-        # We don't need this in RHEL
-        ${PKG_CMD} config-manager --set-enabled PowerTools || ${PKG_CMD} config-manager --set-enabled ubi-8-codeready-builder
+        $PKG_CMD install -y dnf-plugins-core epel-release
+        ${PKG_CMD} config-manager --set-enabled PowerTools
     else
         if [ -f zeek/cmake/RequireCXX17.cmake ]; then
             # C++ 17
-            $PKG_CMD install -y scl-utils centos-release-scl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-            # We only need this in CentOS
-            $PKG_CMD install -y devtoolset-7-gcc* || true
+            $PKG_CMD install -y scl-utils centos-release-scl epel-release
+            $PKG_CMD install -y devtoolset-7-gcc*
         else
             $PKG_CMD install -y epel-release
         fi

@@ -8,8 +8,6 @@ function convert_image_name_to_tag() {
 
     NAMES+=( ["ubuntu:18.04"]=ubuntu_18 ["ubuntu:20.04"]=ubuntu_20 )
 
-    NAMES+=( ["registry.redhat.io/rhscl/devtoolset-7-toolchain-rhel7"]=rhel_7 ["registry.redhat.io/ubi8/ubi"]=rhel_8 )
-
     echo ${NAMES[$1]}
 }
 
