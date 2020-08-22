@@ -43,13 +43,8 @@ elif [ $FLAVOR == "RedHat" ]; then
         if [ -f zeek/cmake/RequireCXX17.cmake ]; then
             # C++ 17
             $PKG_CMD install -y scl-utils centos-release-scl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-            # We only need this in RHEL, if centos-release-scl was found above
-            if ${PKG_CMD}-config-manager --enable rhel-server-rhscl-7-rpms; then
-                $PKG_CMD update
-            else
-                true
-            fi
-            $PKG_CMD install -y devtoolset-7-gcc*
+            # We only need this in CentOS
+            $PKG_CMD install -y devtoolset-7-gcc* || true
         else
             $PKG_CMD install -y epel-release
         fi
