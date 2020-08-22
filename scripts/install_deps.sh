@@ -40,8 +40,8 @@ elif [ $FLAVOR == "RedHat" ]; then
     else
         if [ -f zeek/cmake/RequireCXX17.cmake ]; then
             # C++ 17
-            $PKG_CMD install -y epel-release scl-utils devtoolset-7
-            scl enable devtoolset-7 bash
+            $PKG_CMD install -y epel-release scl-utils centos-release-scl
+            $PKG_CMD install -y devtoolset-7-gcc*
         else
             $PKG_CMD install -y epel-release
         fi

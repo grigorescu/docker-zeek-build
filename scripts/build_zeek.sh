@@ -35,6 +35,9 @@ if ! command -v cmake &> /dev/null; then
     fi
 fi
 
+if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f zeek/cmake/RequireCXX17.cmake ]; then
+    scl enable devtoolset-7 bash
+fi
 
 cd zeek
 ./configure $CONF_OPTS
