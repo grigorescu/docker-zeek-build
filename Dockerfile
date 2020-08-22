@@ -13,4 +13,4 @@ WORKDIR /build
 
 RUN ./scripts/install_deps.sh
 RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
-
+RUN ./scripts/build_zeek.sh
