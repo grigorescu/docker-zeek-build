@@ -31,7 +31,13 @@ elif [ $FLAVOR == "RedHat" ]; then
         $PKG_CMD install -y dnf-plugins-core epel-release
         $PKG_CMD config-manager --set-enabled PowerTools
     else
-        $PKG_CMD install -y epel-release
+        if [ -f zeek/cmake/RequireCXX17.cmake ]; then
+            # C++ 17
+            $PKG_CMD install -y epel-release devtoolset-7
+            scl enable devtoolset-7 bash
+        else
+            $PKG_CMD install -y epel-release
+        fi
     fi
 
     $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ git jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig which zlib-devel

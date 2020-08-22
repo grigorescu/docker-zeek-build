@@ -10,9 +10,9 @@ COPY . /build
 
 WORKDIR /build
 
-RUN ./scripts/install_deps.sh
-
 ARG ZEEK_VER
 RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
+
+RUN ./scripts/install_deps.sh
 
 RUN ./scripts/build_zeek.sh
