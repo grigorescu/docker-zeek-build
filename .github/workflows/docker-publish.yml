@@ -28,7 +28,7 @@ jobs:
 
       - name: Configure Docker (for Red Hat)
         run: echo '${{ secrets.RH_DOCKER_CONF }}' > ~/.docker/config.json
-        if: startsWith("registry.redhat.io", matrix.distro )
+        if: ${{ startsWith(matrix.distro, "registry.redhat.io") }}
 
       - name: Build image
         run: |
