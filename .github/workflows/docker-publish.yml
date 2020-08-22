@@ -10,7 +10,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: grigorescu/zeek
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
