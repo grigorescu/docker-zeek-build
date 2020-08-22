@@ -15,6 +15,10 @@ if command -v python3 &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
 fi
 
+if command -v cmake &> /dev/null; then
+    CONF_OPTS="$CONF_OPTS --with-cmake=$(which cmake3)"
+fi
+
 cd zeek
 ./configure $CONF_OPTS
 make $MAKE_OPTS

@@ -34,6 +34,6 @@ elif [ $FLAVOR == "RedHat" ]; then
         $PKG_CMD install -y epel-release
     fi
 
-    $PKG_CMD install -y bison cmake curl flex gcc gcc-c++ git jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig which zlib-devel
+    $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ git jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel sendmail swig which zlib-devel
 fi
 
