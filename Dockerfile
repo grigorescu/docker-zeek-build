@@ -1,4 +1,3 @@
-ARG ZEEK_VER
 ARG DISTRO
 
 FROM ${DISTRO}
@@ -11,7 +10,9 @@ COPY . /build
 
 WORKDIR /build
 
-#RUN ./scripts/install_deps.sh
-RUN echo ${ZEEK_VER}
-#RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
-#RUN ./scripts/build_zeek.sh
+RUN ./scripts/install_deps.sh
+
+ARG ZEEK_VER
+RUN ./scripts/clone_zeek.sh ${ZEEK_VER}
+
+RUN ./scripts/build_zeek.sh
