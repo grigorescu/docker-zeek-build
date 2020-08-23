@@ -21,7 +21,6 @@ jobs:
 
     env:
       DISTRO: ${{ matrix.distro }}
-      REG: docker.pkg.github.com
 
     steps:
       - uses: actions/checkout@v2
@@ -30,15 +29,15 @@ jobs:
         run: |
           VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
-          docker build . --file Dockerfile --tag $REG/${{ github.repository }}/$NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
+          docker build . --file Dockerfile --tag $NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
 
       - name: Log into registry
         if: github.event_name == 'push'
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ github.actor }} --password-stdin
 
       - name: Push image
         if: github.event_name == 'push'
         run: |
           VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
-          docker push $REG/${{ github.repository }}/$NAME:$VERSION
+          docker push $NAME:$VERSION
