@@ -29,7 +29,7 @@ jobs:
         run: |
           VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
-          docker build . --file Dockerfile --tag zeek_$NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
+          docker build . --file Dockerfile --tag ${{ github.actor }}/zeek_$NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
 
       - name: Log into registry
         if: github.event_name == 'push'
@@ -40,4 +40,4 @@ jobs:
         run: |
           VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
-          docker push zeek_$NAME:$VERSION
+          docker push ${{ github.actor }}/zeek_$NAME:$VERSION
