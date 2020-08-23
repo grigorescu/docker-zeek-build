@@ -5,7 +5,7 @@ set -e
 ncores=$(grep '^processor' /proc/cpuinfo | sort -u | wc -l)
 MAKE_OPTS="-j -l $ncores"
 
-CONF_OPTS="--enable-jemalloc --binary-package --enable-static-broker --enable-static-binpac"
+CONF_OPTS="--enable-jemalloc --binary-package"
 
 if [ ! -z $ZEEK_PREFIX ]; then
     CONF_OPTS="$CONF_OPTS --prefix=$ZEEK_PREFIX"
