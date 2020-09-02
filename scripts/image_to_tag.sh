@@ -3,7 +3,6 @@
 function convert_image_name_to_tag() {
     declare -A NAMES
     NAMES["latest"]=master
-    NAMES["script_optimizer"]=topic/vern/script-opt
 
     NAMES+=( ["centos:7"]=centos_7 ["centos:8"]=centos_8 )
 
