@@ -32,7 +32,7 @@ fi
 # Otherwise install what we think we need
 if [ $FLAVOR == "Debian" ]; then
     export DEBIAN_FRONTEND="noninteractive"
-    $PKG_CMD install -y bison build-essential cmake curl flex g++ gcc libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python3-dev python3-pip ruby ruby-dev rubygems sendmail swig zlib1g-dev
+    $PKG_CMD install -y bison build-essential cmake curl flex g++ gawk gcc libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python3-dev python3-pip ruby ruby-dev rubygems sendmail swig zlib1g-dev
 elif [ $FLAVOR == "RedHat" ]; then
     # libpcap-devel moved to the PowerTools repo in CentOS 8
     if [ $(rpm -E %{rhel}) == "8" ]; then
