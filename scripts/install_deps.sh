@@ -29,7 +29,7 @@ if [ ! -z "$1" ]; then
     exit 0
 fi
 
-# Otherwise install what we think we needI 
+# Otherwise install what we think we need
 if [ $FLAVOR == "Debian" ]; then
     export DEBIAN_FRONTEND="noninteractive"
     $PKG_CMD install -y bison build-essential cmake curl flex g++ gawk gcc libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python3-dev python3-pip ruby ruby-dev rubygems sendmail swig zlib1g-dev
@@ -49,7 +49,7 @@ elif [ $FLAVOR == "RedHat" ]; then
     fi
 
     $PKG_CMD install -y autoconf automake bison cmake3 curl file-devel flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel libtool make ncurses-devel openssl-devel ruby-devel rubygems rpm-build sendmail swig which zlib-devel
-    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip python-devel
+    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip python-devel cmake
 fi
 
 pip3 install zkg

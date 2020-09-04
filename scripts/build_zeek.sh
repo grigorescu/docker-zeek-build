@@ -31,8 +31,8 @@ if grep -q -- --with-python configure && command -v python3 &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
 fi
 
-# Use cmake3 to build Zeek 3.0+. Key off of the name change
-if [ -f zeek-wrapper.in ] && ! command -v cmake &> /dev/null; then
+# Use cmake3 to build Zeek 2.6 and 3.0+. Key off of the name change
+if ( [ -f zeek-wrapper.in ] || grep '2.6' VERSION ) && ! command -v cmake &> /dev/null; then
     # RedHat distros install cmake3 under that name, making Zeek unable to find it.
     if grep -q -- --cmake configure && command -v cmake &> /dev/null; then
         CONF_OPTS="$CONF_OPTS --cmake=$(which cmake3)"
