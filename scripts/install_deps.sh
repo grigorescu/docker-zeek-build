@@ -42,14 +42,14 @@ elif [ $FLAVOR == "RedHat" ]; then
         if [ -f zeek/cmake/RequireCXX17.cmake ]; then
             # C++ 17
             $PKG_CMD install -y scl-utils centos-release-scl epel-release
-            $PKG_CMD install -y devtoolset-7-gcc* python3-devel python3-pip
+            $PKG_CMD install -y devtoolset-7-gcc*
         else
             $PKG_CMD install -y epel-release
-            $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip
         fi
     fi
 
     $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel ruby-devel rubygems rpm-build sendmail swig which zlib-devel
+    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip python-devel
 fi
 
 pip3 install zkg
@@ -57,3 +57,6 @@ pip3 install zkg
 if ! gem install --no-document fpm -f; then
     echo "Could not install fpm. Continuing anyway."
 fi
+
+# Older versions will fail without this. Newer versions use the correct syntax.
+sed -i '1s/^/cmake_policy(SET CMP0004 OLD)\n/' CMakeLists.txt || true
