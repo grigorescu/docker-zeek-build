@@ -13,7 +13,7 @@ if command -v apt &> /dev/null; then
     FLAVOR="Debian"
 elif command -v yum &> /dev/null; then
     PKG_CMD="yum"
-    UPDATE_CMD="updateinfo"
+    UPDATE_CMD="makecache"
     FLAVOR="RedHat"
 fi
 
