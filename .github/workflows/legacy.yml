@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["v2.5.5", "v2.4.2", "v2.3.2", "v2.2", "v2.1", "v2.0", "v1.5.3"]
+        version: ["release/2.5", "release/2.4", "release/2.3", "release/2.2", "release/2.1", "release/2.0", "release/1.5"]
 
     env:
       DISTRO: centos:6
@@ -25,7 +25,7 @@ jobs:
 
       - name: Build image
         run: |
-          VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
+          VERSION=$(echo ${{ matrix.version }} | sed -e 's/.*\///' | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
           docker build . --file Dockerfile --tag ${{ github.actor }}/zeek_$NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
 
