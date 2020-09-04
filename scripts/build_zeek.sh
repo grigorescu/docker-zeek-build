@@ -52,7 +52,7 @@ fi
 
 if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f cmake/RequireCXX17.cmake ]; then
     echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
-elif grep '2.5' VERSION
+elif grep '2.5' VERSION; then
     # 2.5 requires C++11, which isn't a thing on CentOS 6 where we build it
     echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
 else
