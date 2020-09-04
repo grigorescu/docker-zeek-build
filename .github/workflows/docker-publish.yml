@@ -5,7 +5,8 @@ on:
     # Publish `master` as Docker `latest` image.
     branches:
       - master
-
+  schedule:
+    - cron:  '30 7 * * *'
   # Run tests for any PRs.
   pull_request:
 
