@@ -36,6 +36,6 @@ jobs:
       - name: Push image
         if: github.event_name == 'push'
         run: |
-          VERSION=$(echo ${{ matrix.version }} | cut -f -2 -d.)
+          VERSION=$(echo ${{ matrix.version }} | sed -e 's/.*\///' | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
           docker push ${{ github.actor }}/zeek_$NAME:$VERSION
