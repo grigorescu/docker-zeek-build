@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["latest", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8"]
+        version: ["latest", "v3.3.0-dev", "v3.2.0", "v3.1.5", "v3.0.8", "script_optimizer"]
         distro: ["centos:7", "centos:8", "ubuntu:18.04", "ubuntu:20.04"]
 
     env:
