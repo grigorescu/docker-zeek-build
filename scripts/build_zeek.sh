@@ -9,6 +9,8 @@ CONF_OPTS="--enable-jemalloc"
 
 if [ ! -z $ZEEK_PREFIX ]; then
     CONF_OPTS="$CONF_OPTS --prefix=$ZEEK_PREFIX"
+elif [ ! -z $BRO_PREFIX ]; then
+    CONF_OPTS="$CONF_OPTS --prefix=$BRO_PREFIX"
 fi
 
 if command -v python3 &> /dev/null; then
