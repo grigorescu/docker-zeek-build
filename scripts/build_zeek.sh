@@ -12,7 +12,7 @@ if [ -f configure.in ]; then
     autoreconf -i
 else
     # Older versions will fail without this. Newer versions use the correct syntax.
-    sed -i '1s/^/cmake_policy(SET CMP0004 OLD)\n/' CMakeLists.txt || (echo "Could not set cmake policy"; cat CMakeLists.txt || true)
+    sed -i '/cmake_minimum_required.*/a cmake_policy(SET CMP0004 OLD)' CMakeLists.txt || (echo "Could not set cmake policy"; cat CMakeLists.txt || true)
 fi
 
 if grep -q -- --enable-jemalloc configure &> /dev/null; then
