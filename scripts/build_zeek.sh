@@ -5,10 +5,6 @@ set -e
 ncores=$(grep '^processor' /proc/cpuinfo | sort -u | wc -l)
 MAKE_OPTS="-j -l $ncores"
 
-if [ -f zeek/configure.in ]; then
-    autoconf
-fi
-
 if grep -q -- --enable-jemalloc zeek/configure &> /dev/null; then
     CONF_OPTS="--enable-jemalloc"
 else
@@ -46,8 +42,13 @@ fi
 
 cd zeek
 
-# Older versions will fail without this. Newer versions use the correct syntax.
-sed -i '1s/^/cmake_policy(SET CMP0004 OLD)\n/' CMakeLists.txt || true
+# Bro 1.x
+if [ -f configure.in ]; then
+    autoconf
+else
+    # Older versions will fail without this. Newer versions use the correct syntax.
+    sed -i '1s/^/cmake_policy(SET CMP0004 OLD)\n/' CMakeLists.txt || (echo "Could not set cmake policy"; cat CMakeLists.txt || true)
+fi
 
 if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f cmake/RequireCXX17.cmake ]; then
     echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
