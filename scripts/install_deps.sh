@@ -57,5 +57,5 @@ pip3 install zkg
 if gem install -h | grep no-document; then
     gem install --no-document fpm -f
 else
-    gem install --no-document fpm -f
+    gem install fpm -f
 fi

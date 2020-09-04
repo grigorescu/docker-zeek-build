@@ -1,4 +1,4 @@
-name: Docker
+name: Docker Build and Publish w/ Recent Zeek Versions
 
 on:
   push:
