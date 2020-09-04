@@ -34,14 +34,12 @@ if ! command -v cmake &> /dev/null; then
         alternatives --install /usr/local/bin/cmake cmake /usr/bin/cmake 10 \
         --slave /usr/local/bin/ctest ctest /usr/bin/ctest \
         --slave /usr/local/bin/cpack cpack /usr/bin/cpack \
-        --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake \
-        --family cmake
+        --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake || true
 
         alternatives --install /usr/local/bin/cmake cmake /usr/bin/cmake3 20 \
         --slave /usr/local/bin/ctest ctest /usr/bin/ctest3 \
         --slave /usr/local/bin/cpack cpack /usr/bin/cpack3 \
-        --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake3 \
-        --family cmake
+        --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake3 || true
     fi
 fi
 

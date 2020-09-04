@@ -42,7 +42,7 @@ elif [ $FLAVOR == "RedHat" ]; then
         if [ -f zeek/cmake/RequireCXX17.cmake ]; then
             # C++ 17
             $PKG_CMD install -y scl-utils centos-release-scl epel-release
-            $PKG_CMD install -y devtoolset-7-gcc*
+            $PKG_CMD install -y devtoolset-7-gcc* python3-devel python3-pip
         else
             $PKG_CMD install -y epel-release
             $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip
