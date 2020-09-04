@@ -45,6 +45,10 @@ fi
 
 
 cd zeek
+
+# Older versions will fail without this. Newer versions use the correct syntax.
+sed -i '1s/^/cmake_policy(SET CMP0004 OLD)\n/' CMakeLists.txt || true
+
 if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f cmake/RequireCXX17.cmake ]; then
     echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
 else
