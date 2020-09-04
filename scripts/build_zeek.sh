@@ -5,7 +5,15 @@ set -e
 ncores=$(grep '^processor' /proc/cpuinfo | sort -u | wc -l)
 MAKE_OPTS="-j -l $ncores"
 
-CONF_OPTS="--enable-jemalloc"
+if [ -f zeek/configure.in ]; then
+    autoconf
+fi
+
+if grep -q -- --enable-jemalloc zeek/configure &> /dev/null; then
+    CONF_OPTS="--enable-jemalloc"
+else
+    CONF_OPTS=""
+fi
 
 if [ ! -z $ZEEK_PREFIX ]; then
     CONF_OPTS="$CONF_OPTS --prefix=$ZEEK_PREFIX"
@@ -13,7 +21,7 @@ elif [ ! -z $BRO_PREFIX ]; then
     CONF_OPTS="$CONF_OPTS --prefix=$BRO_PREFIX"
 fi
 
-if command -v python3 &> /dev/null; then
+if grep -q -- --with-python zeek/configure && command -v python3 &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
 fi
 
