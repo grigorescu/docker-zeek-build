@@ -45,6 +45,7 @@ elif [ $FLAVOR == "RedHat" ]; then
             $PKG_CMD install -y devtoolset-7-gcc*
         else
             $PKG_CMD install -y epel-release
+            $PKG_CMD install -y python3-pip || $PKG_CMD install -y python34-pip
         fi
     fi
 
