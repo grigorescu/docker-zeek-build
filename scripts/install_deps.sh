@@ -45,10 +45,11 @@ elif [ $FLAVOR == "RedHat" ]; then
             $PKG_CMD install -y devtoolset-7-gcc*
         else
             $PKG_CMD install -y epel-release
+            $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python34-devel python34-pip
         fi
     fi
 
-    $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel python3-devel python34-devel python3-pip python34-pip ruby-devel rubygems rpm-build sendmail swig which zlib-devel
+    $PKG_CMD install -y bison cmake3 curl flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel make openssl-devel ruby-devel rubygems rpm-build sendmail swig which zlib-devel
 fi
 
 pip3 install zkg
