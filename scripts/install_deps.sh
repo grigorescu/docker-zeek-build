@@ -54,8 +54,6 @@ fi
 
 pip3 install zkg
 
-if gem install -h | grep no-document; then
-    gem install --no-document fpm -f
-else
-    gem install fpm -f
+if ! gem install --no-document fpm -f; then
+    echo "Could not install fpm. Continuing anyway."
 fi

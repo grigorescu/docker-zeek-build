@@ -1,4 +1,4 @@
-name: Docker Build and Publish w/ Recent Zeek Versions
+name: Docker Build w/ Zeek Legacy
 
 on:
   push:
