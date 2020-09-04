@@ -29,7 +29,7 @@ if [ ! -z "$1" ]; then
     exit 0
 fi
 
-# Otherwise install what we think we need
+# Otherwise install what we think we needI 
 if [ $FLAVOR == "Debian" ]; then
     export DEBIAN_FRONTEND="noninteractive"
     $PKG_CMD install -y bison build-essential cmake curl flex g++ gawk gcc libgoogle-perftools-dev libjemalloc-dev libkrb5-dev libmaxminddb-dev libpcap-dev libssl-dev make python3-dev python3-pip ruby ruby-dev rubygems sendmail swig zlib1g-dev
@@ -39,7 +39,7 @@ elif [ $FLAVOR == "RedHat" ]; then
         $PKG_CMD install -y dnf-plugins-core epel-release
         ${PKG_CMD} config-manager --set-enabled PowerTools
     else
-        if [ -f zeek/cmake/RequireCXX17.cmake ]; then
+        if [ -f zeek/cmake/RequireCXX17.cmake ] || grep '2.5' zeek/VERSION; then
             # C++ 17
             $PKG_CMD install -y scl-utils centos-release-scl epel-release
             $PKG_CMD install -y devtoolset-7-gcc*

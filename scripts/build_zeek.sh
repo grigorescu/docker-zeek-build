@@ -31,8 +31,9 @@ if grep -q -- --with-python configure && command -v python3 &> /dev/null; then
     CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
 fi
 
-# RedHat distros install cmake3 under that name, making Zeek unable to find it.
-if ! command -v cmake &> /dev/null; then
+# Use cmake3 to build Zeek 3.0+. Key off of the name change
+if [ -f zeek-wrapper.in ] && ! command -v cmake &> /dev/null; then
+    # RedHat distros install cmake3 under that name, making Zeek unable to find it.
     if grep -q -- --cmake configure && command -v cmake &> /dev/null; then
         CONF_OPTS="$CONF_OPTS --cmake=$(which cmake3)"
     else
@@ -50,6 +51,9 @@ if ! command -v cmake &> /dev/null; then
 fi
 
 if command -v rpm && [ $(rpm -E %{rhel}) == "7" ] && [ -f cmake/RequireCXX17.cmake ]; then
+    echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
+elif grep '2.5' VERSION
+    # 2.5 requires C++11, which isn't a thing on CentOS 6 where we build it
     echo "./configure $CONF_OPTS" | scl enable devtoolset-7 -
 else
     ./configure $CONF_OPTS
