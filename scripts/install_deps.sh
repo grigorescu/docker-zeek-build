@@ -49,10 +49,12 @@ elif [ $FLAVOR == "RedHat" ]; then
     fi
 
     $PKG_CMD install -y autoconf automake bison cmake3 curl file-devel flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel libtool make ncurses-devel openssl-devel ruby-devel rubygems rpm-build sendmail swig which zlib-devel
-    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python-devel cmake
+    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python-devel python-pip cmake
 fi
 
-pip3 install zkg
+if ! pip3 install zkg; then
+    echo "Could not install pip3. Continuing anyway."
+fi
 
 if ! gem install --no-document fpm -f; then
     echo "Could not install fpm. Continuing anyway."
