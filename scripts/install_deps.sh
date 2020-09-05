@@ -53,7 +53,7 @@ elif [ $FLAVOR == "RedHat" ]; then
 fi
 
 if ! pip3 install zkg; then
-    echo "Could not install pip3. Continuing anyway."
+    pip install zkg || echo "Could not install pip. Continuing anyway."
 fi
 
 if ! gem install --no-document fpm -f; then
