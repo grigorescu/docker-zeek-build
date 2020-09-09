@@ -33,11 +33,9 @@ jobs:
           docker build . --file Dockerfile --tag ${{ github.actor }}/zeek_$NAME:$VERSION --build-arg ZEEK_VER=${{ matrix.version }} --build-arg DISTRO=$DISTRO
 
       - name: Log into registry
-        if: github.event_name == 'push'
         run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ github.actor }} --password-stdin
 
       - name: Push image
-        if: github.event_name == 'push'
         run: |
           VERSION=$(echo ${{ matrix.version }} | sed -e 's/.*\///' | cut -f -2 -d.)
           NAME=$($GITHUB_WORKSPACE/scripts/image_to_tag.sh $DISTRO)
