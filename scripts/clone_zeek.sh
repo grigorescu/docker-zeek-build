@@ -17,4 +17,4 @@ fi
 
 git clone --recursive -b "$VER" --depth 1 "$REPO"
 cd zeek
-echo "Checked out Zeek commit $(git rev-parse HEAD")
+echo "Checked out Zeek commit $(git rev-parse HEAD)"
