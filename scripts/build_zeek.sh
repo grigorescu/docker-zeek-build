@@ -16,7 +16,7 @@ else
 fi
 
 if grep -q -- --enable-jemalloc configure &> /dev/null; then
-    CONF_OPTS="--enable-jemalloc --disable-perftools"
+    CONF_OPTS="--enable-jemalloc"
 else
     CONF_OPTS=""
 fi
