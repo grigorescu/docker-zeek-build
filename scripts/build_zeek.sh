@@ -16,7 +16,7 @@ else
 fi
 
 if grep -q -- --enable-jemalloc configure &> /dev/null; then
-    CONF_OPTS="--enable-jemalloc"
+    CONF_OPTS="--enable-jemalloc --disable-perftools"
 else
     CONF_OPTS=""
 fi
@@ -28,7 +28,11 @@ elif [ ! -z $BRO_PREFIX ]; then
 fi
 
 if grep -q -- --with-python configure && command -v python3 &> /dev/null; then
-    CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
+    if egrep -q '^(1.5|2.0|2.1)' VERSION && command -v python &> /dev/null; then
+        CONF_OPTS="$CONF_OPTS --with-python=$(which python)"
+    else
+        CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
+    fi
 fi
 
 # Use cmake3 to build Zeek 2.6 and 3.0+. Key off of the name change
