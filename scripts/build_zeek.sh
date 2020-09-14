@@ -2,6 +2,12 @@
 
 set -e
 
+function fix_cmake {
+    if [ -f "$1" ]; then
+        sed -i '/cmake_minimum_required.*/a cmake_policy(SET CMP0004 OLD)' "$1" || (echo "Could not set cmake policy in $1"; cat "$1" || true)
+    fi
+}
+
 ncores=$(grep '^processor' /proc/cpuinfo | sort -u | wc -l)
 MAKE_OPTS="-j -l $ncores"
 
@@ -12,10 +18,8 @@ if [ -f configure.in ]; then
     autoreconf -i
 else
     # Older versions will fail without this. Newer versions use the correct syntax.
-    sed -i '/cmake_minimum_required.*/a cmake_policy(SET CMP0004 OLD)' CMakeLists.txt || (echo "Could not set cmake policy"; cat CMakeLists.txt || true)
-    if [ -f aux/broctl/aux/pysubnettree/CMakeLists.txt ]; then
-        sed -i '/cmake_minimum_required.*/a cmake_policy(SET CMP0004 OLD)' aux/broctl/aux/pysubnettree/CMakeLists.txt || (echo "Could not set cmake policy in subnettree"; cat aux/broctl/aux/pysubnettree/CMakeLists.txt || true)
-    fi
+    fix_cmake aux/broccoli/bindings/broccoli-python/CMakeLists.txt
+    fix_cmake aux/broctl/aux/pysubnettree/CMakeLists.txt
 fi
 
 if grep -q -- --enable-jemalloc configure &> /dev/null; then
