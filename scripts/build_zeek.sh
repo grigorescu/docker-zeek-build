@@ -34,7 +34,7 @@ elif [ ! -z $BRO_PREFIX ]; then
     CONF_OPTS="$CONF_OPTS --prefix=$BRO_PREFIX"
 fi
 
-if grep -q -- --with-python configure && command -v python3 &> /dev/null; then
+if grep -q -- --with-python configure &> /dev/null; then
     if egrep -q '^(1.5|2.0|2.1)' VERSION && command -v python &> /dev/null; then
         CONF_OPTS="$CONF_OPTS --with-python=$(which python)"
     else

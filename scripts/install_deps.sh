@@ -49,7 +49,7 @@ elif [ $FLAVOR == "RedHat" ]; then
     fi
 
     $PKG_CMD install -y autoconf automake bison cmake3 curl file-devel flex gcc gcc-c++ jemalloc-devel krb5-devel libmaxminddb-devel libpcap-devel libtool make ncurses-devel openssl-devel ruby-devel rubygems rpm-build sendmail swig which zlib-devel
-    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python-devel python34-devel python34-pip cmake
+    $PKG_CMD install -y python3-devel python3-pip || $PKG_CMD install -y python-devel python-pip cmake
 fi
 
 if ! pip3 install zkg; then
