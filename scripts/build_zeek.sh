@@ -36,6 +36,9 @@ fi
 
 if grep -q -- --with-python configure &> /dev/null; then
     if egrep -q '^(1.5|2.0|2.1)' VERSION && command -v python &> /dev/null; then
+        # These versions have a bug in the cmake file. Get the fixed version.
+        wget https://raw.githubusercontent.com/zeek/cmake/e760f19aa34c38c69bab61b2af251f692c3172c5/UserChangedWarning.cmake
+        mv UserChangedWarning.cmake cmake/
         CONF_OPTS="$CONF_OPTS --with-python=$(which python)"
     elif command -v python3 &> /dev/null; then
         CONF_OPTS="$CONF_OPTS --with-python=$(which python3)"
