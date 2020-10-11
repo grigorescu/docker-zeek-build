@@ -14,8 +14,8 @@ MAKE_OPTS="-j -l $ncores"
 cd zeek
 
 # Bro 1.x
-if [ -f configure.in ]; then
-    autoreconf -i
+if [ -f autogen.sh ]; then
+    ./autogen.sh
 else
     # Older versions will fail without this. Newer versions use the correct syntax.
     fix_cmake aux/broccoli/bindings/broccoli-python/CMakeLists.txt
