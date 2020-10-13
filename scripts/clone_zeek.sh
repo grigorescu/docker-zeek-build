@@ -13,6 +13,9 @@ elif [[ "$VER" == "release/1.5" ]]; then
     curl -o bro.tar.gz https://download.zeek.org/bro-1.5.3.tar.gz
     tar xvzf bro.tar.gz
     mv bro-1* zeek
+    cd zeek
+    echo "Unzipped Zeek version 1.5.3"
+    exit 0
 elif [[ "$VER" == "preview" ]]; then
     VER="v3.3.0-dev"
 elif [[ "$VER" == "script_optimizer" ]]; then
