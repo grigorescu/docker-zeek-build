@@ -9,7 +9,7 @@ function fix_cmake {
 }
 
 ncores=$(grep '^processor' /proc/cpuinfo | sort -u | wc -l)
-MAKE_OPTS="-j -l $ncores"
+MAKE_OPTS="-j 1"
 
 cd zeek
 
