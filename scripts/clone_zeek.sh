@@ -20,6 +20,8 @@ elif [[ "$VER" == "preview" ]]; then
     VER="v3.3.0-dev"
 elif [[ "$VER" == "script_optimizer" ]]; then
     VER="topic/vern/script-opt"
+elif [[ "$VER" == "alpha_multi_hop" ]]; then
+    VER="topic/neverlord/alm-integration"
 fi
 
 git clone --recursive -b "$VER" --depth 1 "$REPO"
