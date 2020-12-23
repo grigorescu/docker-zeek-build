@@ -37,7 +37,7 @@ elif [ $FLAVOR == "RedHat" ]; then
     # libpcap-devel moved to the PowerTools repo in CentOS 8
     if [ $(rpm -E %{rhel}) == "8" ]; then
         $PKG_CMD install -y dnf-plugins-core epel-release
-        ${PKG_CMD} config-manager --set-enabled PowerTools
+        ${PKG_CMD} config-manager --set-enabled powertools
     else
         if [ -f zeek/cmake/RequireCXX17.cmake ] || grep '2.5' zeek/VERSION; then
             # C++ 17
